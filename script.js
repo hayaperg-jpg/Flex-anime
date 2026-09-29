@@ -1,362 +1,403 @@
-const $ = id => document.getElementById(id);
+/* =====================================================
+   FLEXANIME
+===================================================== */
 
 
-/* =========================
-   STORAGE
-========================= */
+/* ================= STORAGE ================= */
 
-const WATCH_KEY = "flexanime_watch";
-const COINS_KEY = "flexanime_coins";
-const PREMIUM_KEY = "flexanime_premium";
+const COINS_KEY =
+  "flexanime_coins";
 
-const USERS_KEY = "flexanime_users";
-const CURRENT_USER_KEY = "flexanime_current_user";
+const WATCH_KEY =
+  "flexanime_watchlist";
 
+const PREMIUM_KEY =
+  "flexanime_premium";
 
-/* =========================
-   COINS
-========================= */
+const USERS_KEY =
+  "flexanime_users";
 
-let coins = Number(
-  localStorage.getItem(COINS_KEY)
-);
-
-if(!Number.isFinite(coins)){
-  coins = 10;
-}
+const CURRENT_USER_KEY =
+  "flexanime_current_user";
 
 
-/* =========================
-   WATCHLIST
-========================= */
-
-let watch = JSON.parse(
-  localStorage.getItem(WATCH_KEY) || "[]"
-);
-
-
-/* =========================
-   PREMIUM
-========================= */
-
-let premium = Number(
-  localStorage.getItem(PREMIUM_KEY) || 0
-);
-
-
-/* =========================
-   AUTH
-========================= */
-
-let authMode = "login";
-
-let users = JSON.parse(
-  localStorage.getItem(USERS_KEY) || "[]"
-);
-
-let currentUser = JSON.parse(
-  localStorage.getItem(CURRENT_USER_KEY) || "null"
-);
-
-
-/* =========================
-   POSTERS
-========================= */
-
-const posters = {
-
-  "Attack on Titan":
-    "aot.jpg",
-
-  "Chainsaw Man":
-    "chainsawman.jpg",
-
-  "Death Note":
-    "deathnote.jpg",
-
-  "Demon Slayer":
-    "demonslayer.jpg",
-
-  "Jujutsu Kaisen":
-    "jjk.jpg",
-
-  "One Piece":
-    "onepiece.jpg",
-
-  "That Time I Got Reincarnated as a Slime":
-    "slime-s4.jpg"
-
-};
-
-
-/* =========================
-   ANIME DATA
-========================= */
+/* ================= DATA ================= */
 
 const anime = [
 
-  [
-    "That Time I Got Reincarnated as a Slime",
-    "Fantasy",
-    9.1,
-    2024,
-    1,
-    1
-  ],
+  {
+    id:1,
+    title:"That Time I Got Reincarnated as a Slime",
+    genre:"Fantasy",
+    rating:9.1,
+    year:2024,
+    trending:true,
+    latest:true,
+    poster:"slime-s4.jpg"
+  },
 
-  [
-    "Solo Leveling",
-    "Action",
-    9.1,
-    2024,
-    1,
-    1
-  ],
+  {
+    id:2,
+    title:"Solo Leveling",
+    genre:"Action",
+    rating:9.1,
+    year:2024,
+    trending:true,
+    latest:true,
+    poster:""
+  },
 
-  [
-    "Jujutsu Kaisen",
-    "Action",
-    8.8,
-    2020,
-    1,
-    1
-  ],
+  {
+    id:3,
+    title:"Jujutsu Kaisen",
+    genre:"Action",
+    rating:8.8,
+    year:2020,
+    trending:true,
+    latest:true,
+    poster:"jjk.jpg"
+  },
 
-  [
-    "Attack on Titan",
-    "Dark",
-    9,
-    2013,
-    1,
-    0
-  ],
+  {
+    id:4,
+    title:"Attack on Titan",
+    genre:"Dark",
+    rating:9.0,
+    year:2013,
+    trending:true,
+    latest:false,
+    poster:"aot.jpg"
+  },
 
-  [
-    "One Piece",
-    "Adventure",
-    9,
-    1999,
-    1,
-    0
-  ],
+  {
+    id:5,
+    title:"One Piece",
+    genre:"Adventure",
+    rating:9.0,
+    year:1999,
+    trending:true,
+    latest:false,
+    poster:"onepiece.jpg"
+  },
 
-  [
-    "Demon Slayer",
-    "Fantasy",
-    8.6,
-    2019,
-    1,
-    0
-  ],
+  {
+    id:6,
+    title:"Demon Slayer",
+    genre:"Fantasy",
+    rating:8.6,
+    year:2019,
+    trending:true,
+    latest:false,
+    poster:"demonslayer.jpg"
+  },
 
-  [
-    "Chainsaw Man",
-    "Action",
-    8.5,
-    2022,
-    1,
-    0
-  ],
+  {
+    id:7,
+    title:"Chainsaw Man",
+    genre:"Action",
+    rating:8.5,
+    year:2022,
+    trending:true,
+    latest:false,
+    poster:"chainsawman.jpg"
+  },
 
-  [
-    "Death Note",
-    "Mystery",
-    8.9,
-    2006,
-    1,
-    0
-  ],
+  {
+    id:8,
+    title:"Death Note",
+    genre:"Mystery",
+    rating:8.9,
+    year:2006,
+    trending:true,
+    latest:false,
+    poster:"deathnote.jpg"
+  },
 
-  [
-    "Naruto",
-    "Adventure",
-    8.4,
-    2002,
-    0,
-    1
-  ],
+  {
+    id:9,
+    title:"Naruto",
+    genre:"Adventure",
+    rating:8.4,
+    year:2002,
+    trending:false,
+    latest:true,
+    poster:""
+  },
 
-  [
-    "Bleach",
-    "Action",
-    8.2,
-    2004,
-    0,
-    0
-  ],
+  {
+    id:10,
+    title:"Bleach",
+    genre:"Action",
+    rating:8.2,
+    year:2004,
+    trending:false,
+    latest:false,
+    poster:""
+  },
 
-  [
-    "Dragon Ball Super",
-    "Action",
-    8,
-    2015,
-    0,
-    1
-  ],
+  {
+    id:11,
+    title:"Dragon Ball Super",
+    genre:"Action",
+    rating:8.0,
+    year:2015,
+    trending:false,
+    latest:true,
+    poster:""
+  },
 
-  [
-    "My Hero Academia",
-    "Superhero",
-    8,
-    2016,
-    0,
-    0
-  ],
+  {
+    id:12,
+    title:"My Hero Academia",
+    genre:"Superhero",
+    rating:8.0,
+    year:2016,
+    trending:false,
+    latest:false,
+    poster:""
+  },
 
-  [
-    "Black Clover",
-    "Fantasy",
-    8.2,
-    2017,
-    0,
-    1
-  ],
+  {
+    id:13,
+    title:"Black Clover",
+    genre:"Fantasy",
+    rating:8.2,
+    year:2017,
+    trending:false,
+    latest:true,
+    poster:""
+  },
 
-  [
-    "Spy x Family",
-    "Comedy",
-    8.5,
-    2022,
-    0,
-    1
-  ],
+  {
+    id:14,
+    title:"Spy x Family",
+    genre:"Comedy",
+    rating:8.5,
+    year:2022,
+    trending:false,
+    latest:true,
+    poster:""
+  },
 
-  [
-    "Haikyuu!!",
-    "Sports",
-    8.7,
-    2014,
-    0,
-    0
-  ],
+  {
+    id:15,
+    title:"Haikyuu!!",
+    genre:"Sports",
+    rating:8.7,
+    year:2014,
+    trending:false,
+    latest:false,
+    poster:""
+  },
 
-  [
-    "Blue Lock",
-    "Sports",
-    8.3,
-    2022,
-    0,
-    0
-  ],
+  {
+    id:16,
+    title:"Blue Lock",
+    genre:"Sports",
+    rating:8.3,
+    year:2022,
+    trending:false,
+    latest:false,
+    poster:""
+  },
 
-  [
-    "Tokyo Ghoul",
-    "Dark",
-    7.7,
-    2014,
-    0,
-    0
-  ],
+  {
+    id:17,
+    title:"Tokyo Ghoul",
+    genre:"Dark",
+    rating:7.7,
+    year:2014,
+    trending:false,
+    latest:false,
+    poster:""
+  },
 
-  [
-    "Frieren",
-    "Fantasy",
-    9,
-    2023,
-    0,
-    1
-  ],
+  {
+    id:18,
+    title:"Frieren",
+    genre:"Fantasy",
+    rating:9.0,
+    year:2023,
+    trending:false,
+    latest:true,
+    poster:""
+  },
 
-  [
-    "Hunter x Hunter",
-    "Adventure",
-    9,
-    2011,
-    0,
-    0
-  ],
+  {
+    id:19,
+    title:"Hunter x Hunter",
+    genre:"Adventure",
+    rating:9.0,
+    year:2011,
+    trending:false,
+    latest:false,
+    poster:""
+  },
 
-  [
-    "Vinland Saga",
-    "Historical",
-    8.8,
-    2019,
-    0,
-    1
-  ]
+  {
+    id:20,
+    title:"Vinland Saga",
+    genre:"Historical",
+    rating:8.8,
+    year:2019,
+    trending:false,
+    latest:true,
+    poster:""
+  }
 
-].map((x,i) => ({
-
-  id:i + 1,
-
-  title:x[0],
-
-  genre:x[1],
-
-  rating:x[2],
-
-  year:x[3],
-
-  trend:x[4],
-
-  latest:x[5]
-
-}));
+];
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* ================= STATE ================= */
 
-function esc(value){
-
-  return String(value).replace(
-    /[&<>'"]/g,
-    m => ({
-
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      "'":"&#39;",
-      '"':"&quot;"
-
-    }[m])
+let coins =
+  Number(
+    localStorage.getItem(COINS_KEY)
   );
+
+if(
+  !Number.isFinite(coins)
+){
+
+  coins = 10;
 
 }
 
 
-/* =========================
-   CARD
-========================= */
+let watchlist =
+  JSON.parse(
+    localStorage.getItem(WATCH_KEY)
+    || "[]"
+  );
 
-function card(a){
 
-  const poster =
-    posters[a.title];
+let premium =
+  Number(
+    localStorage.getItem(PREMIUM_KEY)
+    || 0
+  );
+
+
+let users =
+  JSON.parse(
+    localStorage.getItem(USERS_KEY)
+    || "[]"
+  );
+
+
+let currentUser =
+  JSON.parse(
+    localStorage.getItem(
+      CURRENT_USER_KEY
+    )
+    || "null"
+  );
+
+
+let authMode = "login";
+
+
+/* ================= HELPERS ================= */
+
+function $(id){
+
+  return document.getElementById(id);
+
+}
+
+
+function escapeHTML(text){
+
+  return String(text)
+    .replace(
+      /[&<>"']/g,
+      function(char){
+
+        const map = {
+
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
+
+        };
+
+        return map[char];
+
+      }
+    );
+
+}
+
+
+/* ================= CARD ================= */
+
+function createCard(item){
+
+  let posterHTML = "";
+
+
+  if(
+    item.poster &&
+    item.poster.trim() !== ""
+  ){
+
+    posterHTML = `
+
+      <img
+        src="./${item.poster}"
+        alt="${escapeHTML(item.title)}"
+        onerror="this.style.display='none'"
+      >
+
+    `;
+
+  }
+
+
+  if(!posterHTML){
+
+    posterHTML = `
+
+      <div class="poster-placeholder">
+
+        ${escapeHTML(item.title)}
+
+      </div>
+
+    `;
+
+  }
+
 
   return `
 
     <article
-      class="card"
-      onclick="showAnime(${a.id})"
+      class="anime-card"
+      onclick="openAnime(${item.id})"
     >
 
       <div class="poster">
 
-        ${
-          poster
-          ?
-          `<img
-            src="${poster}"
-            alt="${esc(a.title)}"
-          >`
-          :
-          ""
-        }
+        ${posterHTML}
 
         <span class="rating">
-          ★ ${a.rating}
+          ★ ${item.rating}
         </span>
 
       </div>
 
+
       <h3>
-        ${esc(a.title)}
+        ${escapeHTML(item.title)}
       </h3>
 
+
       <p>
-        ${a.year} • ${esc(a.genre)}
+        ${item.year}
+        •
+        ${escapeHTML(item.genre)}
       </p>
 
     </article>
@@ -366,9 +407,7 @@ function card(a){
 }
 
 
-/* =========================
-   RENDER
-========================= */
+/* ================= RENDER ================= */
 
 function render(){
 
@@ -376,84 +415,214 @@ function render(){
     coins;
 
 
-  $("trending").innerHTML =
-    anime
-      .filter(a => a.trend)
-      .map(card)
+  const trending =
+    anime.filter(
+      item => item.trending
+    );
+
+
+  const latest =
+    anime.filter(
+      item => item.latest
+    );
+
+
+  $("trendingAnime").innerHTML =
+    trending
+      .map(createCard)
       .join("");
 
 
-  $("latest").innerHTML =
-    anime
-      .filter(a => a.latest)
-      .map(card)
+  $("latestAnime").innerHTML =
+    latest
+      .map(createCard)
       .join("");
+
+
+  renderAllAnime();
+
+  renderGenres();
+
+  updatePremium();
+
+  updateLoginButton();
+
+}
+
+
+/* ================= ALL ANIME ================= */
+
+function renderAllAnime(
+  list = anime
+){
+
+  $("animeSectionTitle")
+    .textContent =
+      "All Anime";
 
 
   $("allAnime").innerHTML =
-    anime
-      .map(card)
+    list
+      .map(createCard)
       .join("");
 
 
-  const genres = [
-    ...new Set(
-      anime.map(a => a.genre)
-    )
-  ];
+}
 
 
-  $("genres").innerHTML =
+/* ================= GENRES ================= */
+
+function renderGenres(){
+
+  const genres =
+    [
+      ...new Set(
+        anime.map(
+          item => item.genre
+        )
+      )
+    ];
+
+
+  $("genreList").innerHTML =
     genres
       .map(
         genre => `
 
           <button
-            onclick="filterGenre('${esc(genre)}')"
+            class="genre-button"
+            onclick="filterGenre('${genre}')"
           >
-            ${esc(genre)}
+
+            ${escapeHTML(genre)}
+
           </button>
 
         `
       )
       .join("");
 
+}
 
-  updatePremium();
+
+/* ================= FILTER ================= */
+
+function filterGenre(genre){
+
+  const filtered =
+    anime.filter(
+      item =>
+        item.genre === genre
+    );
+
+
+  $("animeSectionTitle")
+    .textContent =
+      genre + " Anime";
+
+
+  $("allAnime").innerHTML =
+    filtered
+      .map(createCard)
+      .join("");
+
+
+  $("animeSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
 
 }
 
 
-/* =========================
-   SHOW ANIME
-========================= */
+/* ================= SHOW ALL ================= */
 
-function showAnime(id){
+function showAll(){
 
-  const a =
-    anime.find(x => x.id === id);
-
-  if(!a) return;
-
-  const poster =
-    posters[a.title];
+  $("animeSectionTitle")
+    .textContent =
+      "All Anime";
 
 
-  $("modalBody").innerHTML = `
+  $("allAnime").innerHTML =
+    anime
+      .map(createCard)
+      .join("");
 
-    <div class="detail">
+
+  $("animeSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* ================= HOME ================= */
+
+function goHome(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ================= ANIME DETAILS ================= */
+
+function openAnime(id){
+
+  const item =
+    anime.find(
+      animeItem =>
+        animeItem.id === id
+    );
+
+
+  if(!item){
+    return;
+  }
+
+
+  let posterHTML = "";
+
+
+  if(
+    item.poster &&
+    item.poster.trim() !== ""
+  ){
+
+    posterHTML = `
+
+      <img
+        class="details-poster"
+        src="./${item.poster}"
+        alt="${escapeHTML(item.title)}"
+        onerror="this.style.display='none'"
+      >
+
+    `;
+
+  }
+
+
+  $("animeDetails").innerHTML = `
+
+    <div class="details">
 
       <div>
 
         ${
-          poster
-          ?
-          `<img
-            src="${poster}"
-            alt="${esc(a.title)}"
-          >`
-          :
-          ""
+          posterHTML ||
+          `
+          <div
+            class="poster-placeholder details-poster"
+          >
+            ${escapeHTML(item.title)}
+          </div>
+          `
         }
 
       </div>
@@ -461,57 +630,94 @@ function showAnime(id){
 
       <div>
 
-        <div class="eyebrow">
-          ${esc(a.genre)} ANIME
+        <div class="small-label">
+          ${escapeHTML(item.genre)}
         </div>
+
 
         <h2>
-          ${esc(a.title)}
+          ${escapeHTML(item.title)}
         </h2>
 
-        <div class="meta">
-          ★ ${a.rating}/10
-          • ${a.year}
-          • ${esc(a.genre)}
-        </div>
 
         <p>
-          Watch this anime on FlexAnime.
-          Select a season and episode below.
+
+          ★ ${item.rating}/10
+
+          &nbsp; • &nbsp;
+
+          ${item.year}
+
+          &nbsp; • &nbsp;
+
+          ${escapeHTML(item.genre)}
+
         </p>
+
 
         <p>
-          <b>Languages:</b>
-          Japanese • English • Hindi • Urdu
+
+          FlexAnime anime page.
+
+          Yahan tum apne
+          authorized/licensed video sources
+          connect kar sakte ho.
+
         </p>
 
 
-        <div class="episodes">
+        <div class="episode-box">
 
-          <b>Season 1</b>
+          <strong>
+            Season 1
+          </strong>
+
 
           <br>
 
+
           <button
-            onclick="playEpisode(${a.id},1,1)"
+            class="episode-button"
+            onclick="playEpisode('${escapeHTML(item.title)}',1)"
           >
             Episode 1
           </button>
 
+
           <button
-            onclick="playEpisode(${a.id},1,2)"
+            class="episode-button"
+            onclick="playEpisode('${escapeHTML(item.title)}',2)"
           >
             Episode 2
           </button>
 
+
           <button
-            onclick="playEpisode(${a.id},1,3)"
+            class="episode-button"
+            onclick="playEpisode('${escapeHTML(item.title)}',3)"
           >
             Episode 3
           </button>
 
         </div>
 
+
+        <br>
+
+
+        <button
+          class="watch-button"
+          onclick="toggleWatch(${item.id})"
+        >
+          ${
+            watchlist.includes(item.id)
+            ?
+            "✓ In Watchlist"
+            :
+            "＋ Watchlist"
+          }
+        </button>
+
       </div>
 
     </div>
@@ -519,209 +725,170 @@ function showAnime(id){
   `;
 
 
-  $("modal")
+  $("animeModal")
     .classList
     .remove("hidden");
 
 }
 
 
-/* =========================
-   PLAYER
-========================= */
+/* ================= PLAYER ================= */
 
 function playEpisode(
-  id,
-  season,
+  title,
   episode
 ){
 
-  const a =
-    anime.find(x => x.id === id);
-
-  if(!a) return;
-
-
-  $("modalBody").innerHTML = `
-
-    <div>
-
-      <div class="eyebrow">
-        NOW PLAYING
-      </div>
-
-      <h2>
-        ${esc(a.title)}
-      </h2>
-
-      <p>
-        Season ${season}
-        • Episode ${episode}
-      </p>
-
-      <p>
-        Video source abhi configure nahi hai.
-        Apna licensed/authorized video URL
-        script.js mein add karo.
-      </p>
-
-      <button
-        class="play"
-        onclick="closeModal()"
-      >
-        Close
-      </button>
-
-    </div>
-
-  `;
+  alert(
+    title +
+    " - Episode " +
+    episode +
+    "\n\n" +
+    "Video source abhi configured nahi hai.\n" +
+    "Apna authorized video URL connect karo."
+  );
 
 }
 
 
-/* =========================
-   MODAL
-========================= */
+/* ================= CLOSE ANIME ================= */
 
-function closeModal(){
+function closeAnime(){
 
-  $("modal")
+  $("animeModal")
     .classList
     .add("hidden");
 
 }
 
 
-/* =========================
-   WATCHLIST
-========================= */
+/* ================= WATCHLIST ================= */
 
-function toggleWatch(title){
+function toggleWatch(id){
 
   if(
-    watch.includes(title)
+    watchlist.includes(id)
   ){
 
-    watch =
-      watch.filter(
-        x => x !== title
+    watchlist =
+      watchlist.filter(
+        item => item !== id
       );
 
   }else{
 
-    watch.push(title);
+    watchlist.push(id);
 
   }
 
 
   localStorage.setItem(
     WATCH_KEY,
-    JSON.stringify(watch)
+    JSON.stringify(watchlist)
   );
+
+
+  render();
+
+
+  if(
+    $("animeModal") &&
+    !$("animeModal")
+      .classList
+      .contains("hidden")
+  ){
+
+    openAnime(id);
+
+  }
 
 }
 
 
-/* =========================
-   WATCHLIST PAGE
-========================= */
+/* ================= SHOW WATCHLIST ================= */
 
-function watchlist(){
-
-  $("browseTitle").textContent =
-    "My Watchlist";
-
+function showWatchlist(){
 
   const list =
     anime.filter(
-      a => watch.includes(a.title)
+      item =>
+        watchlist.includes(item.id)
     );
 
 
-  $("allAnime").innerHTML =
-    list.length
-    ?
-    list.map(card).join("")
-    :
-    "<p>Your watchlist is empty.</p>";
+  $("animeSectionTitle")
+    .textContent =
+      "My Watchlist";
 
 
-  $("browse").scrollIntoView({
-    behavior:"smooth"
-  });
+  if(!list.length){
 
-}
+    $("allAnime").innerHTML = `
 
+      <div
+        style="
+          color:#8191aa;
+          padding:20px 0;
+        "
+      >
 
-/* =========================
-   FILTER GENRE
-========================= */
+        Your watchlist is empty.
 
-function filterGenre(genre){
+      </div>
 
-  $("browseTitle").textContent =
-    genre + " Anime";
+    `;
 
+  }else{
 
-  $("allAnime").innerHTML =
-    anime
-      .filter(
-        a => a.genre === genre
-      )
-      .map(card)
-      .join("");
+    $("allAnime").innerHTML =
+      list
+        .map(createCard)
+        .join("");
 
-
-  $("browse").scrollIntoView({
-    behavior:"smooth"
-  });
-
-}
+  }
 
 
-/* =========================
-   SHOW ALL
-========================= */
-
-function showAll(){
-
-  $("browseTitle").textContent =
-    "All Anime";
-
-
-  $("allAnime").innerHTML =
-    anime
-      .map(card)
-      .join("");
-
-
-  $("browse").scrollIntoView({
-    behavior:"smooth"
-  });
+  $("animeSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
 
 }
 
 
-/* =========================
-   SEARCH
-========================= */
+/* ================= SEARCH ================= */
 
 function openSearch(){
 
-  $("searchBox")
+  $("searchModal")
     .classList
     .remove("hidden");
 
-  $("search").focus();
 
-  searchAnime();
+  $("searchInput").value = "";
+
+
+  $("searchResults").innerHTML =
+    anime
+      .map(createCard)
+      .join("");
+
+
+  setTimeout(
+    function(){
+
+      $("searchInput").focus();
+
+    },
+    100
+  );
 
 }
 
 
 function closeSearch(){
 
-  $("searchBox")
+  $("searchModal")
     .classList
     .add("hidden");
 
@@ -730,49 +897,64 @@ function closeSearch(){
 
 function searchAnime(){
 
-  const q =
-    $("search")
+  const query =
+    $("searchInput")
       .value
+      .trim()
       .toLowerCase();
 
 
-  $("results").innerHTML =
-    anime
+  const results =
+    anime.filter(
+      item =>
 
-      .filter(
-        a =>
-          a.title
-            .toLowerCase()
-            .includes(q)
+        item.title
+          .toLowerCase()
+          .includes(query)
 
-          ||
+        ||
 
-          a.genre
-            .toLowerCase()
-            .includes(q)
-      )
+        item.genre
+          .toLowerCase()
+          .includes(query)
+    );
 
-      .map(card)
 
-      .join("");
+  $("searchResults").innerHTML =
+    results.length
+
+    ?
+
+    results
+      .map(createCard)
+      .join("")
+
+    :
+
+    `
+
+      <p style="color:#8191aa">
+        No anime found.
+      </p>
+
+    `;
 
 }
 
 
-/* =========================
-   PREMIUM
-========================= */
+/* ================= PREMIUM ================= */
 
 function openPremium(){
 
-  $("premium").scrollIntoView({
-    behavior:"smooth"
-  });
+  $("premiumSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
 
 }
 
 
-function redeem(
+function buyPremium(
   price,
   days
 ){
@@ -780,7 +962,7 @@ function redeem(
   if(coins < price){
 
     alert(
-      "Coins kam hain."
+      "Tumhare paas enough coins nahi hain."
     );
 
     return;
@@ -791,100 +973,78 @@ function redeem(
   coins -= price;
 
 
+  const now =
+    Date.now();
+
+
+  const currentPremium =
+    premium > now
+      ? premium
+      : now;
+
+
   premium =
-    Math.max(
-      Date.now(),
-      premium
-    )
-    +
-    days * 86400000;
+    currentPremium +
+    (
+      days *
+      24 *
+      60 *
+      60 *
+      1000
+    );
 
 
   localStorage.setItem(
     COINS_KEY,
-    coins
+    String(coins)
   );
 
 
   localStorage.setItem(
     PREMIUM_KEY,
-    premium
+    String(premium)
   );
 
 
   render();
+
+
+  alert(
+    days +
+    " days Premium activate ho gaya!"
+  );
 
 }
 
 
 function updatePremium(){
 
-  $("premiumStatus").textContent =
+  if(
+    premium &&
     premium > Date.now()
+  ){
 
-    ?
-
-    "Premium active until " +
-    new Date(
-      premium
-    ).toLocaleDateString()
-
-    :
-
-    "Premium is not active.";
-
-}
+    const date =
+      new Date(premium);
 
 
-/* =========================
-   NAVIGATION
-========================= */
+    $("premiumStatus")
+      .textContent =
+        "✓ Premium active until " +
+        date.toLocaleDateString();
 
-function nav(
-  id,
-  button
-){
+  }else{
 
-  document
-    .querySelectorAll("nav button")
-    .forEach(
-      x =>
-        x.classList.remove(
-          "active"
-        )
-    );
+    $("premiumStatus")
+      .textContent =
+        "Premium is not active.";
 
-
-  button.classList.add(
-    "active"
-  );
-
-
-  document
-    .getElementById(id)
-    .scrollIntoView({
-      behavior:"smooth"
-    });
+  }
 
 }
 
 
-function topPage(){
-
-  scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =====================================================
-   LOGIN / SIGNUP SYSTEM
-===================================================== */
-
-
-/* OPEN LOGIN */
+/* ================= AUTH ================= */
 
 function openAuth(){
 
@@ -892,41 +1052,36 @@ function openAuth(){
 
   updateAuthUI();
 
-  $("authOverlay")
+
+  $("authModal")
     .classList
     .remove("hidden");
-
-
-  setTimeout(
-    () =>
-      $("authEmail").focus(),
-    50
-  );
 
 }
 
 
-/* CLOSE LOGIN */
-
 function closeAuth(){
 
-  $("authOverlay")
+  $("authModal")
     .classList
     .add("hidden");
 
 }
 
 
-/* SWITCH LOGIN / SIGNUP */
+function switchAuthMode(){
 
-function toggleAuthMode(){
-
-  authMode =
+  if(
     authMode === "login"
-    ?
-    "signup"
-    :
-    "login";
+  ){
+
+    authMode = "signup";
+
+  }else{
+
+    authMode = "login";
+
+  }
 
 
   updateAuthUI();
@@ -934,31 +1089,31 @@ function toggleAuthMode(){
 }
 
 
-/* UPDATE LOGIN UI */
-
 function updateAuthUI(){
 
   const signup =
     authMode === "signup";
 
 
-  $("authTitle").textContent =
-    signup
-    ?
-    "Create Account"
-    :
-    "Login";
+  $("authTitle")
+    .textContent =
+      signup
+      ?
+      "Create Account"
+      :
+      "Login";
 
 
-  $("authText").textContent =
-    signup
-    ?
-    "Apna free FlexAnime account banao."
-    :
-    "Apne FlexAnime account mein login karo.";
+  $("authDescription")
+    .textContent =
+      signup
+      ?
+      "Apna free FlexAnime account banao."
+      :
+      "Apne FlexAnime account mein login karo.";
 
 
-  $("authName")
+  $("nameInput")
     .classList
     .toggle(
       "hidden",
@@ -966,8 +1121,7 @@ function updateAuthUI(){
     );
 
 
-  document
-    .querySelector(".auth-submit")
+  $("authSubmit")
     .textContent =
       signup
       ?
@@ -976,8 +1130,7 @@ function updateAuthUI(){
       "Login";
 
 
-  document
-    .querySelector(".auth-switch")
+  $("authSwitch")
     .textContent =
       signup
       ?
@@ -988,25 +1141,25 @@ function updateAuthUI(){
 }
 
 
-/* SUBMIT LOGIN / SIGNUP */
+/* ================= SUBMIT AUTH ================= */
 
 function submitAuth(){
 
   const name =
-    $("authName")
+    $("nameInput")
       .value
       .trim();
 
 
   const email =
-    $("authEmail")
+    $("emailInput")
       .value
       .trim()
       .toLowerCase();
 
 
   const password =
-    $("authPassword")
+    $("passwordInput")
       .value;
 
 
@@ -1028,7 +1181,9 @@ function submitAuth(){
   }
 
 
-  if(password.length < 6){
+  if(
+    password.length < 6
+  ){
 
     alert(
       "Password kam az kam 6 characters ka hona chahiye."
@@ -1039,18 +1194,20 @@ function submitAuth(){
   }
 
 
-  /* SIGN UP */
+  /* SIGNUP */
 
-  if(authMode === "signup"){
+  if(
+    authMode === "signup"
+  ){
 
-    const exists =
+    const alreadyExists =
       users.some(
         user =>
           user.email === email
       );
 
 
-    if(exists){
+    if(alreadyExists){
 
       alert(
         "Ye email already registered hai."
@@ -1061,7 +1218,7 @@ function submitAuth(){
     }
 
 
-    currentUser = {
+    const newUser = {
 
       name:name,
 
@@ -1073,8 +1230,12 @@ function submitAuth(){
 
 
     users.push(
-      currentUser
+      newUser
     );
+
+
+    currentUser =
+      newUser;
 
 
     localStorage.setItem(
@@ -1094,8 +1255,13 @@ function submitAuth(){
     updateLoginButton();
 
 
+    $("nameInput").value = "";
+    $("emailInput").value = "";
+    $("passwordInput").value = "";
+
+
     alert(
-      "FlexAnime account create ho gaya!"
+      "Account successfully create ho gaya!"
     );
 
 
@@ -1106,15 +1272,15 @@ function submitAuth(){
 
   /* LOGIN */
 
-  const found =
+  const user =
     users.find(
-      user =>
-        user.email === email &&
-        user.password === password
+      item =>
+        item.email === email &&
+        item.password === password
     );
 
 
-  if(!found){
+  if(!user){
 
     alert(
       "Email ya password ghalat hai."
@@ -1125,7 +1291,8 @@ function submitAuth(){
   }
 
 
-  currentUser = found;
+  currentUser =
+    user;
 
 
   localStorage.setItem(
@@ -1139,6 +1306,9 @@ function submitAuth(){
   updateLoginButton();
 
 
+  $("passwordInput").value = "";
+
+
   alert(
     "Login successful!"
   );
@@ -1146,33 +1316,7 @@ function submitAuth(){
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
-
-function logout(){
-
-  currentUser = null;
-
-
-  localStorage.removeItem(
-    CURRENT_USER_KEY
-  );
-
-
-  updateLoginButton();
-
-
-  alert(
-    "Logout ho gaya."
-  );
-
-}
-
-
-/* =========================
-   LOGIN BUTTON
-========================= */
+/* ================= LOGIN BUTTON ================= */
 
 function updateLoginButton(){
 
@@ -1180,23 +1324,20 @@ function updateLoginButton(){
     $("loginBtn");
 
 
-  if(!button) return;
+  if(!button){
+    return;
+  }
 
 
   if(currentUser){
 
     button.textContent =
-      (
-        currentUser.name ||
-        "Account"
-      )
-      +
-      " · Logout";
+      currentUser.name +
+      " • Logout";
 
 
     button.onclick =
       logout;
-
 
   }else{
 
@@ -1212,10 +1353,68 @@ function updateLoginButton(){
 }
 
 
-/* =========================
-   START WEBSITE
-========================= */
+/* ================= LOGOUT ================= */
+
+function logout(){
+
+  currentUser =
+    null;
+
+
+  localStorage.removeItem(
+    CURRENT_USER_KEY
+  );
+
+
+  updateLoginButton();
+
+
+  alert(
+    "Logout successful."
+  );
+
+}
+
+
+/* ================= CLOSE MODAL ON BACKGROUND ================= */
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      $("searchModal")
+    ){
+
+      closeSearch();
+
+    }
+
+
+    if(
+      event.target ===
+      $("animeModal")
+    ){
+
+      closeAnime();
+
+    }
+
+
+    if(
+      event.target ===
+      $("authModal")
+    ){
+
+      closeAuth();
+
+    }
+
+  }
+);
+
+
+/* ================= START ================= */
 
 render();
-
-updateLoginButton();
