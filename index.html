@@ -1,513 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="theme-color" content="#020817">
-
-  <title>FlexAnime - Only Anime</title>
-
-  <link rel="stylesheet" href="./style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#020817">
+<title>FlexAnime — Only Anime</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#020817;color:#fff;font-family:Arial,Helvetica,sans-serif;padding-bottom:100px}button,input{font:inherit}button{cursor:pointer}.top{position:fixed;top:0;left:0;right:0;height:68px;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:linear-gradient(#020817f5,#020817bb,transparent);backdrop-filter:blur(10px)}.brand{display:flex;align-items:center;gap:9px;font-weight:900;letter-spacing:1px}.logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#fff,#1682ff);color:#020817;font-size:24px;font-weight:1000;box-shadow:0 0 25px #1682ff55}.brand span{color:#1682ff}.actions{display:flex;gap:7px;align-items:center}.actions button{height:40px;border-radius:22px;border:1px solid #ffffff18;background:#09172df0;color:#fff;padding:0 12px;font-weight:800}.actions .login{background:#176cff;border-color:#176cff}.hero{height:650px;position:relative;display:flex;align-items:flex-end;overflow:hidden;background:radial-gradient(circle at 78% 28%,#176cff66,transparent 28%),linear-gradient(125deg,#08265a,#07132b 55%,#020817)}.hero:before{content:"";position:absolute;width:430px;height:430px;right:8%;top:12%;border-radius:50%;background:radial-gradient(circle,#2589ff55,transparent 68%)}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#020817 0%,#020817b8 42%,transparent 82%),linear-gradient(0deg,#020817,transparent 62%)}.heroText{position:relative;z-index:2;padding:0 6% 70px;max-width:800px}.label{font-size:11px;letter-spacing:3px;color:#70aaff;font-weight:900}.hero h1{font-size:clamp(38px,6vw,74px);line-height:.98;margin:10px 0 17px}.muted{color:#9aa9c0}.watch{border:0;background:#fff;color:#020817;padding:13px 25px;border-radius:28px;font-weight:900}.circle{width:45px;height:45px;border-radius:50%;border:1px solid #ffffff1c;background:#09172df0;color:#fff;margin-left:6px}.section{padding:28px 5%}.title{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.title h2{margin:0;font-size:23px}.title button{border:0;background:none;color:#70aaff;font-weight:800}.row{display:flex;gap:14px;overflow-x:auto;scrollbar-width:none}.row::-webkit-scrollbar{display:none}.card{flex:0 0 150px;cursor:pointer}.poster{height:215px;border-radius:14px;overflow:hidden;position:relative;background:radial-gradient(circle at 30% 20%,#176cff66,transparent 38%),linear-gradient(145deg,#10356f,#091126);border:1px solid #ffffff12;display:grid;place-items:center;text-align:center;padding:12px}.poster b{font-size:15px}.rate{position:absolute;top:8px;left:8px;background:#020817dd;border:1px solid #ffffff18;border-radius:8px;padding:5px 7px;font-size:11px}.card h3{font-size:14px;margin:8px 2px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card p{font-size:11px;color:#71829d;margin:0 2px}.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:17px}.genres{display:flex;gap:8px;overflow:auto;scrollbar-width:none}.genres button{white-space:nowrap;border:1px solid #ffffff14;background:#09172d;color:#bdc9dc;padding:10px 15px;border-radius:22px}.genres button:hover{background:#176cff;color:#fff}.premium{margin:15px 5% 30px;padding:28px;border-radius:24px;border:1px solid #176cff55;background:radial-gradient(circle at 100% 0,#176cff44,transparent 35%),linear-gradient(135deg,#071c3e,#050d1e)}.premium h2{margin:7px 0}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.plan{border:1px solid #ffffff14;background:#09172d;color:#fff;border-radius:15px;padding:16px;text-align:left}.plan strong,.plan span{display:block}.plan span{color:#70aaff;margin-top:6px}.bottom{position:fixed;z-index:60;bottom:14px;left:50%;transform:translateX(-50%);width:min(570px,calc(100% - 24px));height:70px;border:1px solid #ffffff14;border-radius:27px;background:#050d1eed;backdrop-filter:blur(20px);display:flex;justify-content:space-around;align-items:center}.bottom button{border:0;background:none;color:#71829d;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:20px}.bottom small{font-size:9px}.bottom .active{color:#fff}.overlay{position:fixed;z-index:100;inset:0;background:#000817ed;backdrop-filter:blur(12px);overflow:auto;padding:75px 18px 30px}.box{width:min(900px,100%);margin:auto;background:#071225;border:1px solid #ffffff14;border-radius:23px;padding:25px;position:relative}.close{position:absolute;right:13px;top:12px;width:37px;height:37px;border:0;border-radius:50%;background:#12233e;color:#fff;font-size:23px}.search{width:100%;padding:15px;border-radius:13px;border:1px solid #ffffff14;background:#09172d;color:#fff;outline:none;margin:15px 0 20px}.details{display:grid;grid-template-columns:200px 1fr;gap:24px}.detailsPoster{height:290px;border-radius:15px;background:linear-gradient(145deg,#10356f,#091126);display:grid;place-items:center;text-align:center;padding:15px}.details h2{font-size:30px;margin:7px 0 12px}.episode{padding:15px;border-radius:15px;background:#09172d;border:1px solid #ffffff12}.episode button{border:0;background:#12305a;color:#fff;padding:9px 12px;border-radius:9px;margin:8px 5px 0 0}.auth{width:min(430px,100%);margin:auto;background:linear-gradient(145deg,#081a37,#050c1d);border:1px solid #ffffff14;border-radius:25px;padding:32px;text-align:center;position:relative}.authLogo{width:65px;height:65px;border-radius:18px;margin:0 auto 14px;display:grid;place-items:center;background:linear-gradient(135deg,#fff,#1682ff);color:#020817;font-size:32px;font-weight:1000}.auth h2{font-size:30px;margin:7px 0}.auth p{color:#8191aa;font-size:13px}.field{width:100%;padding:14px;margin-top:10px;border-radius:13px;border:1px solid #ffffff14;background:#09172d;color:#fff;outline:none}.submit{width:100%;border:0;padding:14px;margin-top:14px;border-radius:13px;background:#176cff;color:#fff;font-weight:900}.switch{width:100%;border:1px solid #ffffff14;padding:12px;margin-top:9px;border-radius:13px;background:#09172d;color:#a9c5ff}.note{display:block;color:#667791;font-size:11px;margin-top:12px}.hidden{display:none!important}@media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}@media(max-width:600px){.top{padding:0 9px}.brand strong{font-size:14px}.actions{gap:4px}.actions button{padding:0 9px}.hero{height:610px}.heroText{padding:0 18px 65px}.hero h1{font-size:38px}.section{padding:22px 15px}.card{flex-basis:135px}.poster{height:190px}.grid{grid-template-columns:repeat(2,1fr);gap:13px}.plans{grid-template-columns:1fr}.premium{margin:15px}.details{grid-template-columns:1fr}.detailsPoster{width:160px;height:230px}}
+</style>
 </head>
-
 <body>
-
-<!-- ================= HEADER ================= -->
-
-<header class="topbar">
-
-  <div class="brand" onclick="goHome()">
-
-    <div class="brand-logo">F</div>
-
-    <div class="brand-name">
-      FLEX<span>ANIME</span>
-    </div>
-
-  </div>
-
-
-  <div class="header-actions">
-
-    <button
-      class="coin-button"
-      onclick="openPremium()"
-    >
-      ◈ <span id="coins">10</span>
-    </button>
-
-
-    <button
-      class="icon-button"
-      onclick="openSearch()"
-    >
-      🔍
-    </button>
-
-
-    <button
-      class="login-button"
-      id="loginBtn"
-      onclick="openAuth()"
-    >
-      Login
-    </button>
-
-  </div>
-
-</header>
-
-
-<!-- ================= HERO ================= -->
-
-<section class="hero">
-
-  <div class="hero-background"></div>
-
-  <div class="hero-overlay"></div>
-
-
-  <div class="hero-content">
-
-    <div class="small-label">
-      FEATURED ANIME
-    </div>
-
-
-    <h1>
-      That Time I Got Reincarnated as a Slime
-    </h1>
-
-
-    <p class="hero-info">
-      ★ 9.1 &nbsp; • &nbsp; 2024 &nbsp; • &nbsp; Fantasy
-    </p>
-
-
-    <div class="hero-buttons">
-
-      <button
-        class="watch-button"
-        onclick="openAnime(1)"
-      >
-        ▶ Watch
-      </button>
-
-
-      <button
-        class="circle-button"
-        onclick="toggleWatch(1)"
-      >
-        ＋
-      </button>
-
-
-      <button
-        class="circle-button"
-        onclick="openAnime(1)"
-      >
-        ⓘ
-      </button>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= MAIN ================= -->
-
+<header class="top"><div class="brand" onclick="home()"><div class="logo">F</div><strong>FLEX<span>ANIME</span></strong></div><div class="actions"><button>◈ <span id="coins">10</span></button><button onclick="openSearch()">⌕</button><button class="login" id="loginBtn" onclick="openAuth()">Login</button></div></header>
+<section class="hero"><div class="heroText"><div class="label">FEATURED ANIME</div><h1>That Time I Got Reincarnated as a Slime</h1><p class="muted">★ 9.1 • 2024 • Fantasy</p><button class="watch" onclick="openAnime(1)">▶ Watch</button><button class="circle" onclick="toggleWatch(1)">＋</button></div></section>
 <main>
-
-
-  <!-- TRENDING -->
-
-  <section class="section">
-
-    <div class="section-title">
-
-      <h2>Trending Anime</h2>
-
-      <button onclick="showAll()">
-        See all
-      </button>
-
-    </div>
-
-
-    <div
-      class="anime-row"
-      id="trendingAnime"
-    ></div>
-
-  </section>
-
-
-
-  <!-- LATEST -->
-
-  <section class="section">
-
-    <div class="section-title">
-
-      <h2>Latest Anime</h2>
-
-      <button onclick="showAll()">
-        See all
-      </button>
-
-    </div>
-
-
-    <div
-      class="anime-row"
-      id="latestAnime"
-    ></div>
-
-  </section>
-
-
-
-  <!-- GENRES -->
-
-  <section class="section">
-
-    <div class="section-title">
-
-      <h2>Genres</h2>
-
-    </div>
-
-
-    <div
-      class="genre-list"
-      id="genreList"
-    ></div>
-
-  </section>
-
-
-
-  <!-- ALL ANIME -->
-
-  <section
-    class="section"
-    id="animeSection"
-  >
-
-    <div class="section-title">
-
-      <h2 id="animeSectionTitle">
-        All Anime
-      </h2>
-
-    </div>
-
-
-    <div
-      class="anime-grid"
-      id="allAnime"
-    ></div>
-
-  </section>
-
-
-
-  <!-- PREMIUM -->
-
-  <section
-    class="premium-section"
-    id="premiumSection"
-  >
-
-    <div class="premium-content">
-
-      <div class="small-label">
-        FLEXANIME PREMIUM
-      </div>
-
-
-      <h2>
-        Unlock Premium
-      </h2>
-
-
-      <p>
-        Coins use karke premium days activate karo.
-      </p>
-
-
-      <div class="premium-plans">
-
-
-        <button
-          class="premium-card"
-          onclick="buyPremium(70,7)"
-        >
-
-          <strong>7 Days</strong>
-
-          <span>
-            70 ◈
-          </span>
-
-        </button>
-
-
-
-        <button
-          class="premium-card"
-          onclick="buyPremium(250,30)"
-        >
-
-          <strong>30 Days</strong>
-
-          <span>
-            250 ◈
-          </span>
-
-        </button>
-
-
-
-        <button
-          class="premium-card"
-          onclick="buyPremium(700,100)"
-        >
-
-          <strong>100 Days</strong>
-
-          <span>
-            700 ◈
-          </span>
-
-        </button>
-
-      </div>
-
-
-      <div
-        class="premium-status"
-        id="premiumStatus"
-      ></div>
-
-    </div>
-
-  </section>
-
-
+<section class="section"><div class="title"><h2>Trending Anime</h2><button onclick="showAll()">See all</button></div><div class="row" id="trending"></div></section>
+<section class="section"><div class="title"><h2>Latest Anime</h2><button onclick="showAll()">See all</button></div><div class="row" id="latest"></div></section>
+<section class="section"><div class="title"><h2>Genres</h2></div><div class="genres" id="genres"></div></section>
+<section class="section" id="allSection"><div class="title"><h2 id="allTitle">All Anime</h2></div><div class="grid" id="all"></div></section>
+<section class="premium" id="premium"><div class="label">FLEXANIME PREMIUM</div><h2>Unlock Premium</h2><p class="muted">Coins use karke premium days activate karo.</p><div class="plans"><button class="plan" onclick="buy(70,7)"><strong>7 Days</strong><span>70 ◈</span></button><button class="plan" onclick="buy(250,30)"><strong>30 Days</strong><span>250 ◈</span></button><button class="plan" onclick="buy(700,100)"><strong>100 Days</strong><span>700 ◈</span></button></div><div class="note" id="premiumStatus"></div></section>
 </main>
-
-
-<!-- ================= BOTTOM NAV ================= -->
-
-<nav class="bottom-nav">
-
-  <button
-    class="nav-active"
-    onclick="goHome()"
-  >
-    <span>⌂</span>
-    <small>Home</small>
-  </button>
-
-
-  <button onclick="showAll()">
-
-    <span>▣</span>
-
-    <small>Anime</small>
-
-  </button>
-
-
-  <button onclick="showWatchlist()">
-
-    <span>♡</span>
-
-    <small>Watchlist</small>
-
-  </button>
-
-
-  <button onclick="openSearch()">
-
-    <span>⌕</span>
-
-    <small>Search</small>
-
-  </button>
-
-
-  <button onclick="openPremium()">
-
-    <span>◈</span>
-
-    <small>Premium</small>
-
-  </button>
-
-</nav>
-
-
-
-<!-- ================= SEARCH MODAL ================= -->
-
-<div
-  class="modal-background hidden"
-  id="searchModal"
->
-
-  <div class="modal-box">
-
-    <button
-      class="modal-close"
-      onclick="closeSearch()"
-    >
-      ×
-    </button>
-
-
-    <h2>
-      Search Anime
-    </h2>
-
-
-    <input
-      class="search-input"
-      id="searchInput"
-      placeholder="Search anime..."
-      oninput="searchAnime()"
-    >
-
-
-    <div
-      class="anime-grid"
-      id="searchResults"
-    ></div>
-
-  </div>
-
-</div>
-
-
-
-<!-- ================= ANIME MODAL ================= -->
-
-<div
-  class="modal-background hidden"
-  id="animeModal"
->
-
-  <div class="modal-box">
-
-    <button
-      class="modal-close"
-      onclick="closeAnime()"
-    >
-      ×
-    </button>
-
-
-    <div id="animeDetails"></div>
-
-  </div>
-
-</div>
-
-
-
-<!-- ================= LOGIN MODAL ================= -->
-
-<div
-  class="modal-background hidden"
-  id="authModal"
->
-
-  <div class="auth-box">
-
-    <button
-      class="modal-close"
-      onclick="closeAuth()"
-    >
-      ×
-    </button>
-
-
-    <div class="auth-logo">
-      F
-    </div>
-
-
-    <div class="small-label">
-      FLEXANIME ACCOUNT
-    </div>
-
-
-    <h2 id="authTitle">
-      Login
-    </h2>
-
-
-    <p id="authDescription">
-      Apne FlexAnime account mein login karo.
-    </p>
-
-
-    <input
-      class="auth-input hidden"
-      id="nameInput"
-      placeholder="Your name"
-    >
-
-
-    <input
-      class="auth-input"
-      id="emailInput"
-      type="email"
-      placeholder="Email address"
-    >
-
-
-    <input
-      class="auth-input"
-      id="passwordInput"
-      type="password"
-      placeholder="Password"
-    >
-
-
-    <button
-      class="auth-submit"
-      id="authSubmit"
-      onclick="submitAuth()"
-    >
-      Login
-    </button>
-
-
-    <button
-      class="auth-switch"
-      id="authSwitch"
-      onclick="switchAuthMode()"
-    >
-      Create an account
-    </button>
-
-
-    <small class="auth-note">
-      Demo account system. Account browser mein save hota hai.
-    </small>
-
-  </div>
-
-</div>
-
-
-
-<script src="./script.js"></script>
-
+<nav class="bottom"><button class="active" onclick="home()">⌂<small>Home</small></button><button onclick="showAll()">▣<small>Anime</small></button><button onclick="showWatchlist()">♡<small>Watchlist</small></button><button onclick="openSearch()">⌕<small>Search</small></button><button onclick="document.getElementById('premium').scrollIntoView({behavior:'smooth'})">◈<small>Premium</small></button></nav>
+<div class="overlay hidden" id="searchModal"><div class="box"><button class="close" onclick="closeSearch()">×</button><h2>Search Anime</h2><input class="search" id="searchInput" placeholder="Search anime..." oninput="searchAnime()"><div class="grid" id="results"></div></div></div>
+<div class="overlay hidden" id="animeModal"><div class="box"><button class="close" onclick="closeAnime()">×</button><div id="details"></div></div></div>
+<div class="overlay hidden" id="authModal"><div class="auth"><button class="close" onclick="closeAuth()">×</button><div class="authLogo">F</div><div class="label">FLEXANIME ACCOUNT</div><h2 id="authTitle">Login</h2><p id="authText">Apne FlexAnime account mein login karo.</p><input class="field hidden" id="name" placeholder="Your name"><input class="field" id="email" type="email" placeholder="Email address"><input class="field" id="password" type="password" placeholder="Password"><button class="submit" id="submit" onclick="submitAuth()">Login</button><button class="switch" id="switch" onclick="switchAuth()">Create an account</button><small class="note">Demo account browser mein save hota hai.</small></div></div>
+<script>
+const A=[
+[1,'That Time I Got Reincarnated as a Slime','Fantasy',9.1,2024,1,1],
+[2,'Solo Leveling','Action',9.1,2024,1,1],
+[3,'Jujutsu Kaisen','Action',8.8,2020,1,1],
+[4,'Attack on Titan','Dark',9,2013,1,0],
+[5,'One Piece','Adventure',9,1999,1,0],
+[6,'Demon Slayer','Fantasy',8.6,2019,1,0],
+[7,'Chainsaw Man','Action',8.5,2022,1,0],
+[8,'Death Note','Mystery',8.9,2006,1,0],
+[9,'Naruto','Adventure',8.4,2002,0,1],
+[10,'Bleach','Action',8.2,2004,0,0],
+[11,'Dragon Ball Super','Action',8,2015,0,1],
+[12,'My Hero Academia','Superhero',8,2016,0,0],
+[13,'Black Clover','Fantasy',8.2,2017,0,1],
+[14,'Spy x Family','Comedy',8.5,2022,0,1],
+[15,'Haikyuu!!','Sports',8.7,2014,0,0],
+[16,'Blue Lock','Sports',8.3,2022,0,0],
+[17,'Tokyo Ghoul','Dark',7.7,2014,0,0],
+[18,'Frieren','Fantasy',9,2023,0,1],
+[19,'Hunter x Hunter','Adventure',9,2011,0,0],
+[20,'Vinland Saga','Historical',8.8,2019,0,1]
+].map(x=>({id:x[0],title:x[1],genre:x[2],rating:x[3],year:x[4],trend:x[5],latest:x[6]}));
+let coins=Number(localStorage.getItem('fa_coins'));if(!Number.isFinite(coins))coins=10;
+let watch=JSON.parse(localStorage.getItem('fa_watch')||'[]');
+let premium=Number(localStorage.getItem('fa_premium')||0);
+let users=JSON.parse(localStorage.getItem('fa_users')||'[]');
+let user=JSON.parse(localStorage.getItem('fa_user')||'null');
+let mode='login';
+const $=id=>document.getElementById(id);
+function card(a){return `<article class="card" onclick="openAnime(${a.id})"><div class="poster"><b>${a.title}</b><span class="rate">★ ${a.rating}</span></div><h3>${a.title}</h3><p>${a.year} • ${a.genre}</p></article>`}
+function render(){ $('coins').textContent=coins;$('trending').innerHTML=A.filter(x=>x.trend).map(card).join('');$('latest').innerHTML=A.filter(x=>x.latest).map(card).join('');showAll(false);let g=[...new Set(A.map(x=>x.genre))];$('genres').innerHTML=g.map(x=>`<button onclick="genre('${x}')">${x}</button>`).join('');updatePremium();updateLogin();}
+function showAll(scroll=true){$('allTitle').textContent='All Anime';$('all').innerHTML=A.map(card).join('');if(scroll)$('allSection').scrollIntoView({behavior:'smooth'})}
+function genre(g){$('allTitle').textContent=g+' Anime';$('all').innerHTML=A.filter(x=>x.genre===g).map(card).join('');$('allSection').scrollIntoView({behavior:'smooth'})}
+function home(){window.scrollTo({top:0,behavior:'smooth'})}
+function openAnime(id){let a=A.find(x=>x.id===id);if(!a)return;$('details').innerHTML=`<div class="details"><div class="detailsPoster"><b>${a.title}</b></div><div><div class="label">${a.genre.toUpperCase()}</div><h2>${a.title}</h2><p class="muted">★ ${a.rating}/10 • ${a.year} • ${a.genre}</p><p class="muted">FlexAnime anime page. Apna authorized video source connect karke episodes play kar sakte ho.</p><div class="episode"><b>Season 1</b><br><button onclick="play('${a.title}',1)">Episode 1</button><button onclick="play('${a.title}',2)">Episode 2</button><button onclick="play('${a.title}',3)">Episode 3</button></div><br><button class="watch" onclick="toggleWatch(${a.id})">${watch.includes(a.id)?'✓ In Watchlist':'＋ Watchlist'}</button></div></div>`;$('animeModal').classList.remove('hidden')}
+function play(t,e){alert(t+' — Episode '+e+'\n\nVideo source abhi configured nahi hai. Apna authorized video URL connect karo.')}
+function closeAnime(){$('animeModal').classList.add('hidden')}
+function toggleWatch(id){watch=watch.includes(id)?watch.filter(x=>x!==id):[...watch,id];localStorage.setItem('fa_watch',JSON.stringify(watch));render();openAnime(id)}
+function showWatchlist(){let list=A.filter(x=>watch.includes(x.id));$('allTitle').textContent='My Watchlist';$('all').innerHTML=list.length?list.map(card).join():'<p class="muted">Your watchlist is empty.</p>';$('allSection').scrollIntoView({behavior:'smooth'})}
+function openSearch(){$('searchModal').classList.remove('hidden');$('searchInput').value='';$('results').innerHTML=A.map(card).join('');setTimeout(()=>$('searchInput').focus(),50)}
+function closeSearch(){$('searchModal').classList.add('hidden')}
+function searchAnime(){let q=$('searchInput').value.toLowerCase();let r=A.filter(x=>x.title.toLowerCase().includes(q)||x.genre.toLowerCase().includes(q));$('results').innerHTML=r.length?r.map(card).join():'<p class="muted">No anime found.</p>'}
+function buy(price,days){if(coins<price){alert('Coins kam hain.');return}coins-=price;premium=Math.max(Date.now(),premium)+days*86400000;localStorage.setItem('fa_coins',coins);localStorage.setItem('fa_premium',premium);render();alert(days+' days Premium activate ho gaya!')}
+function updatePremium(){$('premiumStatus').textContent=premium>Date.now()?'✓ Premium active until '+new Date(premium).toLocaleDateString():'Premium is not active.'}
+function openPremium(){$('premium').scrollIntoView({behavior:'smooth'})}
+function openAuth(){mode='login';authUI();$('authModal').classList.remove('hidden')}
+function closeAuth(){$('authModal').classList.add('hidden')}
+function switchAuth(){mode=mode==='login'?'signup':'login';authUI()}
+function authUI(){let s=mode==='signup';$('authTitle').textContent=s?'Create Account':'Login';$('authText').textContent=s?'Apna free FlexAnime account banao.':'Apne FlexAnime account mein login karo.';$('name').classList.toggle('hidden',!s);$('submit').textContent=s?'Sign Up':'Login';$('switch').textContent=s?'Already have an account? Login':'Create an account'}
+function submitAuth(){let n=$('name').value.trim(),e=$('email').value.trim().toLowerCase(),p=$('password').value;if(!e||!p||(mode==='signup'&&!n)){alert('Please sab required fields fill karo.');return}if(p.length<6){alert('Password kam az kam 6 characters ka hona chahiye.');return}if(mode==='signup'){if(users.some(x=>x.email===e)){alert('Ye email already registered hai.');return}user={name:n,email:e,password:p};users.push(user);localStorage.setItem('fa_users',JSON.stringify(users));localStorage.setItem('fa_user',JSON.stringify(user));closeAuth();updateLogin();alert('Account create ho gaya!')}else{let f=users.find(x=>x.email===e&&x.password===p);if(!f){alert('Email ya password ghalat hai.');return}user=f;localStorage.setItem('fa_user',JSON.stringify(user));closeAuth();updateLogin();alert('Login successful!')}}
+function updateLogin(){let b=$('loginBtn');if(user){b.textContent=user.name+' • Logout';b.onclick=logout}else{b.textContent='Login';b.onclick=openAuth}}
+function logout(){user=null;localStorage.removeItem('fa_user');updateLogin();alert('Logout successful.')}
+document.addEventListener('click',e=>{if(e.target===$('searchModal'))closeSearch();if(e.target===$('animeModal'))closeAnime();if(e.target===$('authModal'))closeAuth()});
+render();
+</script>
 </body>
 </html>
