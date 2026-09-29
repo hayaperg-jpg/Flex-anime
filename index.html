@@ -1,228 +1,391 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#030814">
-  <title>FlexAnime — Only Anime</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#020817">
+
+  <title>FlexAnime - Only Anime</title>
+
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-<header>
-  <button onclick="topPage()">‹</button>
+<!-- ================= HEADER ================= -->
 
-  <div class="brand">
-    <b>F</b>
-    <strong>FLEX<span>ANIME</span></strong>
+<header class="topbar">
+
+  <div class="brand" onclick="goHome()">
+
+    <div class="brand-logo">F</div>
+
+    <div class="brand-name">
+      FLEX<span>ANIME</span>
+    </div>
+
   </div>
 
-  <div class="right">
-    <button onclick="openPremium()">◈ <i id="coins">10</i></button>
-    <button onclick="openSearch()">⌕</button>
-    <button class="login-btn" id="loginBtn" onclick="openAuth()">Login</button>
+
+  <div class="header-actions">
+
+    <button
+      class="coin-button"
+      onclick="openPremium()"
+    >
+      ◈ <span id="coins">10</span>
+    </button>
+
+
+    <button
+      class="icon-button"
+      onclick="openSearch()"
+    >
+      🔍
+    </button>
+
+
+    <button
+      class="login-button"
+      id="loginBtn"
+      onclick="openAuth()"
+    >
+      Login
+    </button>
+
   </div>
+
 </header>
 
 
-<main id="home">
+<!-- ================= HERO ================= -->
 
-  <!-- HERO -->
-  <section class="hero">
+<section class="hero">
 
-    <img
-      src="slime-s4.jpg"
-      onerror="this.style.display='none'"
-      alt="Featured Anime"
-    >
+  <div class="hero-background"></div>
 
-    <div class="shade"></div>
+  <div class="hero-overlay"></div>
 
-    <div class="heroText">
-      <small>FEATURED ANIME</small>
 
-      <h1>That Time I Got Reincarnated as a Slime</h1>
+  <div class="hero-content">
 
-      <p>★ 9.1 • 2024 • Fantasy</p>
-
-      <div>
-        <button class="play" onclick="showAnime(1)">
-          ▶ Play
-        </button>
-
-        <button
-          class="round"
-          onclick="toggleWatch(anime[0].title)"
-        >
-          ＋
-        </button>
-
-        <button
-          class="round"
-          onclick="showAnime(1)"
-        >
-          ⓘ
-        </button>
-      </div>
+    <div class="small-label">
+      FEATURED ANIME
     </div>
 
-  </section>
+
+    <h1>
+      That Time I Got Reincarnated as a Slime
+    </h1>
+
+
+    <p class="hero-info">
+      ★ 9.1 &nbsp; • &nbsp; 2024 &nbsp; • &nbsp; Fantasy
+    </p>
+
+
+    <div class="hero-buttons">
+
+      <button
+        class="watch-button"
+        onclick="openAnime(1)"
+      >
+        ▶ Watch
+      </button>
+
+
+      <button
+        class="circle-button"
+        onclick="toggleWatch(1)"
+      >
+        ＋
+      </button>
+
+
+      <button
+        class="circle-button"
+        onclick="openAnime(1)"
+      >
+        ⓘ
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
 
 
   <!-- TRENDING -->
-  <section>
 
-    <div class="head">
+  <section class="section">
+
+    <div class="section-title">
+
       <h2>Trending Anime</h2>
 
       <button onclick="showAll()">
         See all
       </button>
+
     </div>
 
-    <div class="row" id="trending"></div>
+
+    <div
+      class="anime-row"
+      id="trendingAnime"
+    ></div>
 
   </section>
 
 
-  <!-- LATEST -->
-  <section>
 
-    <div class="head">
+  <!-- LATEST -->
+
+  <section class="section">
+
+    <div class="section-title">
+
       <h2>Latest Anime</h2>
 
       <button onclick="showAll()">
         See all
       </button>
+
     </div>
 
-    <div class="row" id="latest"></div>
+
+    <div
+      class="anime-row"
+      id="latestAnime"
+    ></div>
 
   </section>
+
 
 
   <!-- GENRES -->
-  <section>
 
-    <div class="head">
+  <section class="section">
+
+    <div class="section-title">
+
       <h2>Genres</h2>
+
     </div>
 
-    <div class="chips" id="genres"></div>
+
+    <div
+      class="genre-list"
+      id="genreList"
+    ></div>
 
   </section>
+
 
 
   <!-- ALL ANIME -->
-  <section id="browse">
 
-    <div class="head">
-      <h2 id="browseTitle">All Anime</h2>
+  <section
+    class="section"
+    id="animeSection"
+  >
+
+    <div class="section-title">
+
+      <h2 id="animeSectionTitle">
+        All Anime
+      </h2>
+
     </div>
 
-    <div class="grid" id="allAnime"></div>
+
+    <div
+      class="anime-grid"
+      id="allAnime"
+    ></div>
 
   </section>
+
 
 
   <!-- PREMIUM -->
-  <section class="premium" id="premium">
 
-    <small>FLEXANIME PREMIUM</small>
+  <section
+    class="premium-section"
+    id="premiumSection"
+  >
 
-    <h2>Unlock more anime features</h2>
+    <div class="premium-content">
 
-    <p>
-      Use coins to activate premium days.
-    </p>
+      <div class="small-label">
+        FLEXANIME PREMIUM
+      </div>
 
-    <div class="plans">
 
-      <button onclick="redeem(70,7)">
-        <b>7 Days</b>
-        <span>70 ◈</span>
-      </button>
+      <h2>
+        Unlock Premium
+      </h2>
 
-      <button onclick="redeem(250,30)">
-        <b>30 Days</b>
-        <span>250 ◈</span>
-      </button>
 
-      <button onclick="redeem(700,100)">
-        <b>100 Days</b>
-        <span>700 ◈</span>
-      </button>
+      <p>
+        Coins use karke premium days activate karo.
+      </p>
+
+
+      <div class="premium-plans">
+
+
+        <button
+          class="premium-card"
+          onclick="buyPremium(70,7)"
+        >
+
+          <strong>7 Days</strong>
+
+          <span>
+            70 ◈
+          </span>
+
+        </button>
+
+
+
+        <button
+          class="premium-card"
+          onclick="buyPremium(250,30)"
+        >
+
+          <strong>30 Days</strong>
+
+          <span>
+            250 ◈
+          </span>
+
+        </button>
+
+
+
+        <button
+          class="premium-card"
+          onclick="buyPremium(700,100)"
+        >
+
+          <strong>100 Days</strong>
+
+          <span>
+            700 ◈
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="premium-status"
+        id="premiumStatus"
+      ></div>
 
     </div>
 
-    <div id="premiumStatus"></div>
-
   </section>
+
 
 </main>
 
 
-<!-- BOTTOM NAV -->
-<nav>
+<!-- ================= BOTTOM NAV ================= -->
+
+<nav class="bottom-nav">
 
   <button
-    class="active"
-    onclick="nav('home',this)"
+    class="nav-active"
+    onclick="goHome()"
   >
-    ⌂
+    <span>⌂</span>
     <small>Home</small>
   </button>
 
-  <button
-    onclick="nav('browse',this)"
-  >
-    ▣
+
+  <button onclick="showAll()">
+
+    <span>▣</span>
+
     <small>Anime</small>
+
   </button>
 
-  <button onclick="watchlist()">
-    ♡
+
+  <button onclick="showWatchlist()">
+
+    <span>♡</span>
+
     <small>Watchlist</small>
+
   </button>
+
 
   <button onclick="openSearch()">
-    ⌕
+
+    <span>⌕</span>
+
     <small>Search</small>
+
   </button>
 
+
   <button onclick="openPremium()">
-    ◈
+
+    <span>◈</span>
+
     <small>Premium</small>
+
   </button>
 
 </nav>
 
 
-<!-- SEARCH -->
+
+<!-- ================= SEARCH MODAL ================= -->
+
 <div
-  class="overlay hidden"
-  id="searchBox"
+  class="modal-background hidden"
+  id="searchModal"
 >
 
-  <div class="panel">
+  <div class="modal-box">
 
     <button
-      class="close"
+      class="modal-close"
       onclick="closeSearch()"
     >
       ×
     </button>
 
+
+    <h2>
+      Search Anime
+    </h2>
+
+
     <input
-      id="search"
+      class="search-input"
+      id="searchInput"
       placeholder="Search anime..."
       oninput="searchAnime()"
     >
 
+
     <div
-      class="grid"
-      id="results"
+      class="anime-grid"
+      id="searchResults"
     ></div>
 
   </div>
@@ -230,78 +393,87 @@
 </div>
 
 
-<!-- ANIME MODAL -->
+
+<!-- ================= ANIME MODAL ================= -->
+
 <div
-  class="overlay hidden"
-  id="modal"
+  class="modal-background hidden"
+  id="animeModal"
 >
 
-  <div class="panel">
+  <div class="modal-box">
 
     <button
-      class="close"
-      onclick="closeModal()"
+      class="modal-close"
+      onclick="closeAnime()"
     >
       ×
     </button>
 
-    <div id="modalBody"></div>
+
+    <div id="animeDetails"></div>
 
   </div>
 
 </div>
 
 
-<!-- LOGIN / SIGNUP -->
+
+<!-- ================= LOGIN MODAL ================= -->
+
 <div
-  class="overlay hidden"
-  id="authOverlay"
+  class="modal-background hidden"
+  id="authModal"
 >
 
   <div class="auth-box">
 
     <button
-      class="close"
+      class="modal-close"
       onclick="closeAuth()"
     >
       ×
     </button>
 
+
     <div class="auth-logo">
       F
     </div>
 
-    <div class="eyebrow">
+
+    <div class="small-label">
       FLEXANIME ACCOUNT
     </div>
+
 
     <h2 id="authTitle">
       Login
     </h2>
 
-    <p id="authText">
+
+    <p id="authDescription">
       Apne FlexAnime account mein login karo.
     </p>
 
 
     <input
-      id="authName"
       class="auth-input hidden"
+      id="nameInput"
       placeholder="Your name"
     >
 
 
     <input
-      id="authEmail"
       class="auth-input"
+      id="emailInput"
       type="email"
       placeholder="Email address"
     >
 
 
     <input
-      id="authPassword"
       class="auth-input"
+      id="passwordInput"
       type="password"
       placeholder="Password"
     >
@@ -309,6 +481,7 @@
 
     <button
       class="auth-submit"
+      id="authSubmit"
       onclick="submitAuth()"
     >
       Login
@@ -317,14 +490,15 @@
 
     <button
       class="auth-switch"
-      onclick="toggleAuthMode()"
+      id="authSwitch"
+      onclick="switchAuthMode()"
     >
       Create an account
     </button>
 
 
-    <small>
-      Demo login: account data isi browser mein save hota hai.
+    <small class="auth-note">
+      Demo account system. Account browser mein save hota hai.
     </small>
 
   </div>
@@ -332,7 +506,8 @@
 </div>
 
 
-<script src="script.js"></script>
+
+<script src="./script.js"></script>
 
 </body>
 </html>
