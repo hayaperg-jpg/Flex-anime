@@ -1,12 +1,338 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#030814"><title>FlexAnime — Only Anime</title><link rel="stylesheet" href="style.css"></head><body>
-<header><button onclick="topPage()">‹</button><div class="brand"><b>F</b><strong>FLEX<span>ANIME</span></strong></div><div class="right"><button onclick="openPremium()">◈ <i id="coins">10</i></button><button onclick="openSearch()">⌕</button></div></header>
-<main id="home"><section class="hero"><img src="slime-s4.jpg" onerror="this.style.display='none'"><div class="shade"></div><div class="heroText"><small>FEATURED ANIME</small><h1>That Time I Got Reincarnated as a Slime</h1><p>★ 9.1　•　2024　•　Fantasy</p><div><button class="play" onclick="showAnime(1)">▶ Play</button><button class="round" onclick="toggleWatch(anime[0].title)">＋</button><button class="round" onclick="showAnime(1)">ⓘ</button></div></div></section>
-<section><div class="head"><h2>Trending Anime</h2><button onclick="showAll()">See all</button></div><div class="row" id="trending"></div></section>
-<section><div class="head"><h2>Latest Anime</h2><button onclick="showAll()">See all</button></div><div class="row" id="latest"></div></section>
-<section><div class="head"><h2>Genres</h2></div><div class="chips" id="genres"></div></section>
-<section id="browse"><div class="head"><h2 id="browseTitle">All Anime</h2></div><div class="grid" id="allAnime"></div></section>
-<section class="premium" id="premium"><small>FLEXANIME PREMIUM</small><h2>Unlock more anime features</h2><p>Use coins to activate premium days.</p><div class="plans"><button onclick="redeem(70,7)"><b>7 Days</b><span>70 ◈</span></button><button onclick="redeem(250,30)"><b>30 Days</b><span>250 ◈</span></button><button onclick="redeem(700,100)"><b>100 Days</b><span>700 ◈</span></button></div><div id="premiumStatus"></div></section></main>
-<nav><button class="active" onclick="nav('home',this)">⌂<small>Home</small></button><button onclick="nav('browse',this)">▣<small>Anime</small></button><button onclick="watchlist()">♡<small>Watchlist</small></button><button onclick="openSearch()">⌕<small>Search</small></button><button onclick="openPremium()">◈<small>Premium</small></button></nav>
-<div class="overlay hidden" id="searchBox"><div class="panel"><button class="close" onclick="closeSearch()">×</button><input id="search" placeholder="Search anime..." oninput="searchAnime()"><div class="grid" id="results"></div></div></div>
-<div class="overlay hidden" id="modal"><div class="panel"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
-<script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#030814">
+  <title>FlexAnime — Only Anime</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <button onclick="topPage()">‹</button>
+
+  <div class="brand">
+    <b>F</b>
+    <strong>FLEX<span>ANIME</span></strong>
+  </div>
+
+  <div class="right">
+    <button onclick="openPremium()">◈ <i id="coins">10</i></button>
+    <button onclick="openSearch()">⌕</button>
+    <button class="login-btn" id="loginBtn" onclick="openAuth()">Login</button>
+  </div>
+</header>
+
+
+<main id="home">
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <img
+      src="slime-s4.jpg"
+      onerror="this.style.display='none'"
+      alt="Featured Anime"
+    >
+
+    <div class="shade"></div>
+
+    <div class="heroText">
+      <small>FEATURED ANIME</small>
+
+      <h1>That Time I Got Reincarnated as a Slime</h1>
+
+      <p>★ 9.1 • 2024 • Fantasy</p>
+
+      <div>
+        <button class="play" onclick="showAnime(1)">
+          ▶ Play
+        </button>
+
+        <button
+          class="round"
+          onclick="toggleWatch(anime[0].title)"
+        >
+          ＋
+        </button>
+
+        <button
+          class="round"
+          onclick="showAnime(1)"
+        >
+          ⓘ
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- TRENDING -->
+  <section>
+
+    <div class="head">
+      <h2>Trending Anime</h2>
+
+      <button onclick="showAll()">
+        See all
+      </button>
+    </div>
+
+    <div class="row" id="trending"></div>
+
+  </section>
+
+
+  <!-- LATEST -->
+  <section>
+
+    <div class="head">
+      <h2>Latest Anime</h2>
+
+      <button onclick="showAll()">
+        See all
+      </button>
+    </div>
+
+    <div class="row" id="latest"></div>
+
+  </section>
+
+
+  <!-- GENRES -->
+  <section>
+
+    <div class="head">
+      <h2>Genres</h2>
+    </div>
+
+    <div class="chips" id="genres"></div>
+
+  </section>
+
+
+  <!-- ALL ANIME -->
+  <section id="browse">
+
+    <div class="head">
+      <h2 id="browseTitle">All Anime</h2>
+    </div>
+
+    <div class="grid" id="allAnime"></div>
+
+  </section>
+
+
+  <!-- PREMIUM -->
+  <section class="premium" id="premium">
+
+    <small>FLEXANIME PREMIUM</small>
+
+    <h2>Unlock more anime features</h2>
+
+    <p>
+      Use coins to activate premium days.
+    </p>
+
+    <div class="plans">
+
+      <button onclick="redeem(70,7)">
+        <b>7 Days</b>
+        <span>70 ◈</span>
+      </button>
+
+      <button onclick="redeem(250,30)">
+        <b>30 Days</b>
+        <span>250 ◈</span>
+      </button>
+
+      <button onclick="redeem(700,100)">
+        <b>100 Days</b>
+        <span>700 ◈</span>
+      </button>
+
+    </div>
+
+    <div id="premiumStatus"></div>
+
+  </section>
+
+</main>
+
+
+<!-- BOTTOM NAV -->
+<nav>
+
+  <button
+    class="active"
+    onclick="nav('home',this)"
+  >
+    ⌂
+    <small>Home</small>
+  </button>
+
+  <button
+    onclick="nav('browse',this)"
+  >
+    ▣
+    <small>Anime</small>
+  </button>
+
+  <button onclick="watchlist()">
+    ♡
+    <small>Watchlist</small>
+  </button>
+
+  <button onclick="openSearch()">
+    ⌕
+    <small>Search</small>
+  </button>
+
+  <button onclick="openPremium()">
+    ◈
+    <small>Premium</small>
+  </button>
+
+</nav>
+
+
+<!-- SEARCH -->
+<div
+  class="overlay hidden"
+  id="searchBox"
+>
+
+  <div class="panel">
+
+    <button
+      class="close"
+      onclick="closeSearch()"
+    >
+      ×
+    </button>
+
+    <input
+      id="search"
+      placeholder="Search anime..."
+      oninput="searchAnime()"
+    >
+
+    <div
+      class="grid"
+      id="results"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- ANIME MODAL -->
+<div
+  class="overlay hidden"
+  id="modal"
+>
+
+  <div class="panel">
+
+    <button
+      class="close"
+      onclick="closeModal()"
+    >
+      ×
+    </button>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
+<!-- LOGIN / SIGNUP -->
+<div
+  class="overlay hidden"
+  id="authOverlay"
+>
+
+  <div class="auth-box">
+
+    <button
+      class="close"
+      onclick="closeAuth()"
+    >
+      ×
+    </button>
+
+    <div class="auth-logo">
+      F
+    </div>
+
+    <div class="eyebrow">
+      FLEXANIME ACCOUNT
+    </div>
+
+    <h2 id="authTitle">
+      Login
+    </h2>
+
+    <p id="authText">
+      Apne FlexAnime account mein login karo.
+    </p>
+
+
+    <input
+      id="authName"
+      class="auth-input hidden"
+      placeholder="Your name"
+    >
+
+
+    <input
+      id="authEmail"
+      class="auth-input"
+      type="email"
+      placeholder="Email address"
+    >
+
+
+    <input
+      id="authPassword"
+      class="auth-input"
+      type="password"
+      placeholder="Password"
+    >
+
+
+    <button
+      class="auth-submit"
+      onclick="submitAuth()"
+    >
+      Login
+    </button>
+
+
+    <button
+      class="auth-switch"
+      onclick="toggleAuthMode()"
+    >
+      Create an account
+    </button>
+
+
+    <small>
+      Demo login: account data isi browser mein save hota hai.
+    </small>
+
+  </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
